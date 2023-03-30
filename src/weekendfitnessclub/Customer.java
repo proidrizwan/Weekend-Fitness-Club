@@ -22,7 +22,7 @@ public class Customer implements Serializable{
     /**
      * @param name the name to set
      */
-    private void setName(String name) {
+    public final void setName(String name) {
         this.name = name;
     }
 
@@ -36,7 +36,7 @@ public class Customer implements Serializable{
     /**
      * @param address the address to set
      */
-    private void setAddress(String address) {
+    public final void setAddress(String address) {
         this.address = address;
     }
 
@@ -50,7 +50,7 @@ public class Customer implements Serializable{
     /**
      * @param phoneNumber the phoneNumber to set
      */
-    private void setPhoneNumber(String phoneNumber) {
+    public final void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
     

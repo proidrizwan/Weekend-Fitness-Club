@@ -24,7 +24,7 @@ public class ClubController {
      * Weekend Object to operate
      * the whole program.
      */
-    private Weekends weekends;
+    public Weekends weekends;
    
     
      private void showMenu() {
@@ -153,4 +153,6 @@ public class ClubController {
             }
         }
     }
+
+    
 }
