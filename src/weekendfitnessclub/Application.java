@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Application {
     /**
      * Scanner object to take input
-     */
+     */ 
     private Scanner keyBoard;
 
     /**
@@ -16,7 +16,7 @@ public class Application {
      * the whole program.
      */
     private Weekends weekends;
-
+   
     /**
      * Application constructor
      * initializes the instance
@@ -75,6 +75,7 @@ public class Application {
         System.out.println("[Enter 3] Book Lesson");
         System.out.println("[Enter 4] Change Booking");
         System.out.println("[Enter 5] Cancel Booking");
+         System.out.println("[Enter 7] Report 1: Number of Customers per day with Average Rating");
         System.out.println("[Enter 9] Exit");
         System.out.print("\nYour choice (1-9): ");
     }
