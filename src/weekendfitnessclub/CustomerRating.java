@@ -20,19 +20,7 @@ public class CustomerRating implements Serializable {
      *
      * @param customer Customer Object
      */
-    public CustomerRating(Customer customer) {
-        this.customer = customer;
-    }
-
-    /**
-     * This method sets
-     * the user review.
-     *
-     * @param review User Review
-     */
-    public void setReview(String review) {
-        this.review = review;
-    }
+ 
 
     /**
      * This method sets

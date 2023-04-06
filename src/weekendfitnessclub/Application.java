@@ -56,16 +56,7 @@ public class Application {
      *
      * @return user input
      */
-    public int takeInput() {
-        int input;
-        try {
-            input = Integer.parseInt(keyBoard.nextLine());
-        } catch (NumberFormatException e) {
-            System.out.print("\nInvalid Input!!! Please Try Again : ");
-            input = takeInput();
-        }
-        return input;
-    }
+
 
     /**
      * This method shows
