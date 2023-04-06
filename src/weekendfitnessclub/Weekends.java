@@ -68,7 +68,19 @@ public class Weekends implements Serializable {
     /**
      * This method shows all customers
      */
-
+    public void showAllCustomers() {
+        if (customers.isEmpty()) {
+            System.out.println("\nNo Customers to show.");
+            return;
+        }
+        print(93);
+        System.out.printf("%-30s %-25s %36s\n", "|", "Customer List", "|");
+        print(93);
+        System.out.printf("| %-5s | %-15s | %-25s | %-15s | %-10s |\n", "SL", "Name", "Address", "Phone Number", "Number of Lessons");
+        print(93);
+        for (int i = 0; i < customers.size(); i++) {
+            System.out.printf("| %-5s | %s |\n", (i + 1), customers.get(i));
+        }
         print(93);
     }
 

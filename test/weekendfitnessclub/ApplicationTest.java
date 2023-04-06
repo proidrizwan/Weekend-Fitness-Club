@@ -59,7 +59,17 @@ public class ApplicationTest {
         assertTrue(lesson.contains(customer));
     }
 
-  
+    @Test
+    public void addCustomerToListTest() {
+        weekends.addCustomer(customer);
+        assertEquals(1, weekends.customerCount());
+    }
+
+    @Test
+    public void weekendsContainsCustomerTest() {
+        weekends.addCustomer(customer);
+        assertTrue(weekends.isCustomerExists(customer.getName()));
+    }
 
     @Test
     public void weekendsGetRandomLessonTest() {
