@@ -1,4 +1,4 @@
-
+package weekendfitnessclub;
 /**
  * This class is deals all the booking related tasks.
  */

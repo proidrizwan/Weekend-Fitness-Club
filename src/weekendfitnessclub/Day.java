@@ -1,3 +1,6 @@
+
+package weekendfitnessclub;
+
 import java.io.Serializable;
 
 /**

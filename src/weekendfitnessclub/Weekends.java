@@ -1,3 +1,6 @@
+
+package weekendfitnessclub;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -368,7 +371,218 @@ public class Weekends implements Serializable {
         print(86);
     }
 
- 
+    /**
+     * This method adds review.
+     *
+     * @param week          Number of Week
+     * @param day           Number of Day
+     * @param lesson        Number of Lesson
+     * @param lessonType    Number of Lesson Type
+     * @param customer      Customer Object
+     * @param review        Customer Review
+     * @param rating        Customer Rating
+     */
+    public void addReview(int week, int day, int lesson, String lessonType, int rating, String review, Customer customer) {
+        Lesson targetLesson = getLesson(week, day, lesson);
+
+        if (!lessonType.isEmpty() && !targetLesson.getType().equalsIgnoreCase(lessonType)) {
+            System.out.println("\nMismatched Information Provided!!! Please Try Again");
+            return;
+        }
+
+        if (!targetLesson.contains(customer)) {
+            System.out.println("\nCustomer " + customer.getName() + " has not booked this lesson.");
+            return;
+        }
+
+        targetLesson.addRatingReview(customer, rating, review);
+
+        System.out.println("\nRating Added Successfully.");
+    }
+
+    /**
+     * This method generates
+     * a report containing number
+     * of customers per lesson on
+     * each day, along with the
+     * average rating of each lesson.
+     */
+    public void report1() {
+        print(127);
+        System.out.printf("%-50s %-25s %50s\n", "|", "All Day Information", "|");
+        print(127);
+        System.out.printf("| %-5s | %-15s | %-20s | %-15s | %-20s | %-15s | %-15s |\n", "Week", "Day", "Lesson No", "Fitness Type", "Number of Customers", "Lesson Price", "Average Rating");
+        print(127);
+
+        for (int i = 0; i < days.size(); i++) {
+            Day day = days.get(i);
+
+            String dayName = "Saturday";
+
+            if ((i % 2) != 0) {
+                dayName = "Sunday";
+            }
+
+            String rating = "";
+
+            if (day.getLessonOne().getNumberOfCustomers() == 0) {
+                rating = "N/A";
+            } else {
+                rating = "" + day.getLessonOne().getAverageRating();
+            }
+
+            System.out.printf("| %-5s | %-15s | %-20s | %-15s | %-20s | %-15s | %-15s |\n", (i / 2) + 1, dayName,
+                    "Lesson One",
+                    day.getLessonOne().getType(),
+                    day.getLessonOne().getNumberOfCustomers(),
+                    day.getLessonOne().getPrice(),
+                    rating);
+
+            if (day.getLessonTwo().getNumberOfCustomers() == 0) {
+                rating = "N/A";
+            } else {
+                rating = "" + day.getLessonTwo().getAverageRating();
+            }
+
+            System.out.printf("| %-5s | %-15s | %-20s | %-15s | %-20s | %-15s | %-15s |\n", (i / 2) + 1, dayName,
+                    "Lesson Two",
+                    day.getLessonTwo().getType(),
+                    day.getLessonTwo().getNumberOfCustomers(),
+                    day.getLessonTwo().getPrice(),
+                    rating);
+        }
+        print(127);
+    }
+
+    /**
+     * This method prints a
+     * report containing the
+     * type of fitness lessons
+     * which has generated the
+     * highest income, counting all
+     * the same type of lessons together.
+     */
+    public void report2() {
+        List<Lesson> lessons = new ArrayList<>();
+
+        // Adding all days to the list
+        for (Day day : days) {
+            lessons.add(day.getLessonOne());
+            lessons.add(day.getLessonTwo());
+        }
+
+        List<Lesson> maxLessons = new ArrayList<>();
+
+        for (Lesson lesson : lessons) {
+            // Taking each lesson
+            Lesson maxLesson = lesson;
+
+            // Calculating the max price
+            double maxPrice = lesson.getPrice() * lesson.getNumberOfCustomers();
+
+            // Taking each lesson again from the list
+            for (Lesson innerLesson : lessons) {
+                // Checking if the matches or not
+                if (lesson.getType().equals(innerLesson.getType())) {
+                    // Calculating the total price
+                    double innerPrice = innerLesson.getPrice() * innerLesson.getNumberOfCustomers();
+
+                    // Checking if the price
+                    // is greater than the
+                    // max price or not.
+                    if (innerPrice > maxPrice) {
+                        maxPrice = innerPrice;
+                        maxLesson = innerLesson;
+                    }
+                }
+            }
+
+            // Checking if the list
+            // already contains this
+            // type of data.
+            boolean found = false;
+            for (Lesson userLesson : maxLessons) {
+                if (userLesson.getType().equalsIgnoreCase(maxLesson.getType())) {
+                    found = true;
+                    break;
+                }
+            }
+
+            // if not found then add
+            if (!found) {
+                maxLessons.add(maxLesson);
+            }
+        }
+
+        // Iterating each lesson
+        for (Lesson lesson : maxLessons) {
+            print(127);
+            System.out.printf("%-50s %-27s %48s\n", "|", "Lesson " + lesson.getType(), "|");
+            print(127);
+            System.out.printf("| %-5s | %-15s | %-20s | %-15s | %-20s | %-15s | %-15s |\n", "Week", "Day", "Lesson No", "Fitness Type", "Number of Customers", "Total Price", "Average Rating");
+            print(127);
+
+            // Iterating each day
+            for (int i = 0; i < days.size(); i++) {
+                Day day = days.get(i);
+
+                String dayName = "Saturday";
+
+                if ((i % 2) != 0) {
+                    dayName = "Sunday";
+                }
+
+                String rating = "";
 
 
+                if (day.getLessonOne().getType().equalsIgnoreCase(lesson.getType())) {
+                    if (day.getLessonOne().getNumberOfCustomers() == 0) {
+                        rating = "N/A";
+                    } else {
+                        rating = "" + day.getLessonOne().getAverageRating();
+                    }
+
+                    if (day.getLessonOne().equals(lesson)) {
+                    System.out.printf("| %-5s | %-15s | %-20s | %-15s | %-20s | %-15s | %-15s |\n", (i / 2) + 1, dayName,
+                            "Lesson One",
+                            day.getLessonOne().getType(),
+                            day.getLessonOne().getNumberOfCustomers(),
+                            day.getLessonOne().getPrice() * day.getLessonOne().getNumberOfCustomers() + " (max)",
+                            rating);
+                    } else {
+                        System.out.printf("| %-5s | %-15s | %-20s | %-15s | %-20s | %-15s | %-15s |\n", (i / 2) + 1, dayName,
+                                "Lesson One",
+                                day.getLessonOne().getType(),
+                                day.getLessonOne().getNumberOfCustomers(),
+                                day.getLessonOne().getPrice() * day.getLessonOne().getNumberOfCustomers(),
+                                rating);
+                    }
+                } else if (day.getLessonTwo().getType().equalsIgnoreCase(lesson.getType())) {
+                    if (day.getLessonTwo().getNumberOfCustomers() == 0) {
+                        rating = "N/A";
+                    } else {
+                        rating = "" + day.getLessonTwo().getAverageRating();
+                    }
+
+                    if (day.getLessonTwo().equals(lesson)) {
+                        System.out.printf("| %-5s | %-15s | %-20s | %-15s | %-20s | %-15s | %-15s |\n", (i / 2) + 1, dayName,
+                                "Lesson Two",
+                                day.getLessonTwo().getType(),
+                                day.getLessonTwo().getNumberOfCustomers(),
+                                day.getLessonTwo().getPrice() * day.getLessonTwo().getNumberOfCustomers() + " (max)",
+                                rating);
+                    } else {
+                        System.out.printf("| %-5s | %-15s | %-20s | %-15s | %-20s | %-15s | %-15s |\n", (i / 2) + 1, dayName,
+                                "Lesson Two",
+                                day.getLessonTwo().getType(),
+                                day.getLessonTwo().getNumberOfCustomers(),
+                                day.getLessonTwo().getPrice() * day.getLessonTwo().getNumberOfCustomers(),
+                                rating);
+                    }
+                }
+            }
+            print(127);
+            System.out.println();
+        }
+    }
 }

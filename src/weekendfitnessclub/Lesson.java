@@ -1,3 +1,5 @@
+package weekendfitnessclub;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +60,22 @@ public class Lesson implements Serializable {
         customers.remove(index);
     }
 
-  
+    /**
+     * This method adds
+     * both rating and review.
+     *
+     * @param userCustomer  Customer Object
+     * @param rating        Rating by customer
+     * @param review        Review by Customer
+     */
+    public void addRatingReview(Customer userCustomer, int rating, String review) {
+        for (CustomerRating customer : customers) {
+            if (customer.getCustomer().equals(userCustomer)) {
+                customer.setRating(rating);
+                customer.setReview(review);
+            }
+        }
+    }
 
     /**
      * This method checks
@@ -119,5 +136,19 @@ public class Lesson implements Serializable {
         return price;
     }
 
-  
+    /**
+     * This method gets
+     * average rating from
+     * the list of customers.
+     *
+     * @return Average Rating.
+     */
+    public int getAverageRating() {
+        int rating = 0;
+        for (CustomerRating customer : customers) {
+            rating += customer.getRating();
+        }
+
+        return rating / getNumberOfCustomers();
+    }
 }

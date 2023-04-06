@@ -1,3 +1,6 @@
+
+package weekendfitnessclub;
+
 import java.io.*;
 import java.util.Scanner;
 
@@ -8,7 +11,7 @@ import java.util.Scanner;
 public class Application {
     /**
      * Scanner object to take input
-     */ 
+     */
     private Scanner keyBoard;
 
     /**
@@ -16,7 +19,7 @@ public class Application {
      * the whole program.
      */
     private Weekends weekends;
-   
+
     /**
      * Application constructor
      * initializes the instance
@@ -75,7 +78,9 @@ public class Application {
         System.out.println("[Enter 3] Book Lesson");
         System.out.println("[Enter 4] Change Booking");
         System.out.println("[Enter 5] Cancel Booking");
-         System.out.println("[Enter 7] Report 1: Number of Customers per day with Average Rating");
+        System.out.println("[Enter 6] Add Review and Rating");
+        System.out.println("[Enter 7] Report 1: Number of Customers per day with Average Rating");
+        System.out.println("[Enter 8] Report 2: Fitness Lessons that generated Highest Income");
         System.out.println("[Enter 9] Exit");
         System.out.print("\nYour choice (1-9): ");
     }
@@ -140,9 +145,95 @@ public class Application {
         return weekends.getCustomer(sl - 1);
     }
 
+    /**
+     * This method is responsible
+     * for add a review.
+     */
+    public void addReview() {
+        Customer customer = selectCustomer();
 
-   
-   
+        if (customer == null) {
+            return;
+        }
+
+        if (customer.getLessons().size() == 0) {
+            System.out.println("\nNo Lesson Exists!!! Please Book First!!!");
+            return;
+        }
+
+        weekends.showLesson(customer);
+
+        System.out.print("\nEnter Week No: ");
+        int week = takeInput();
+
+        while (week < 0 || week > weekends.getNumberOfWeeks()) {
+            System.out.print("\nError!!! Invalid Number of Weeks!!! Please Try Again: ");
+            week = takeInput();
+        }
+
+        System.out.println("\nPlease select Day");
+        System.out.println("[Enter 1] Saturday");
+        System.out.println("[Enter 2] Sunday");
+        System.out.print("\nYour choice (1-2): ");
+
+        int day = takeInput();
+
+        while (day < 1 || day > 2) {
+            System.out.print("\nError!!! Invalid Option!!! Please Try Again: ");
+            day = takeInput();
+        }
+
+        System.out.print("\nPlease Select Lesson No\n");
+        System.out.println("[Enter 1] Lesson One");
+        System.out.println("[Enter 2] Lesson Two");
+        System.out.print("\nYour choice (1-2): ");
+
+        int lesson = takeInput();
+
+        while (lesson < 1 || lesson > 2) {
+            System.out.print("\nError!!! Invalid Option!!! Please Try Again: ");
+            lesson = takeInput();
+        }
+
+        System.out.print("\nEnter fitness type : ");
+        String fitnessType = keyBoard.nextLine();
+
+        System.out.print("\nEnter Rating (1-5): ");
+
+        int rating = takeInput();
+
+        while (rating < 1 || rating > 5) {
+            System.out.print("\nError!!! Invalid Rating!!! Please Try Again: ");
+            rating = takeInput();
+        }
+
+        System.out.print("\nEnter Review : ");
+        String review = keyBoard.nextLine();
+
+        while (review.isEmpty()) {
+            System.out.print("\nError!!! Review Can Not be Empty!!! Please Try Again: ");
+            review = keyBoard.nextLine();
+        }
+
+        weekends.addReview(week, day, lesson, fitnessType, rating, review, customer);
+    }
+
+    /**
+     * This method prints
+     * the report 1.
+     */
+    public void report1() {
+        weekends.report1();
+    }
+
+    /**
+     * This method prints
+     * the report 2.
+     */
+    public void report2() {
+        weekends.report2();
+    }
+
     /**
      * This method saves
      * the data to file and
@@ -200,7 +291,15 @@ public class Application {
                 case 5:
                     Booking.cancelBooking(app);
                     break;
-             
+                case 6:
+                    app.addReview();
+                    break;
+                case 7:
+                    app.report1();
+                    break;
+                case 8:
+                    app.report2();
+                    break;
                 case 9:
                     app.saveAndExit();
                 default:
