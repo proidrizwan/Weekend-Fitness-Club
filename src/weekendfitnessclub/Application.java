@@ -81,7 +81,7 @@ public class Application {
         System.out.println("[Enter 6] Add Review and Rating");
         System.out.println("[Enter 7] Report 1: Number of Customers per day with Average Rating");
         System.out.println("[Enter 8] Report 2: Fitness Lessons that generated Highest Income");
-        System.out.println("[Enter 9] Exit");
+        System.out.println("[Enter 9] Save and Exit");
         System.out.print("\nYour choice (1-9): ");
     }
 
