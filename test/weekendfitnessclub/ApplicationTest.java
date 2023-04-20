@@ -32,7 +32,14 @@ public class ApplicationTest {
         lesson.addCustomer(customer);
         assertFalse(lesson.addCustomer(customer));
     }
-
+    @Test
+    public void isCustomerExistsTest() {
+       
+        weekends.addCustomer(customer);
+        // assertEquals(1, weekends.customerCount());
+        assertTrue(weekends.isCustomerExists("John"));
+    }
+    
     @Test
     public void addMoreThanFiveCustomerToLessonTest() {
         lesson.addCustomer(new Customer("John1", "UK", "1111111111"));

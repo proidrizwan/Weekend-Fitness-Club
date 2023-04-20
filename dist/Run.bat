@@ -1,1 +1,1 @@
-java -jar "WeekendFitnessClub.jar"
+java -jar "WeekendFitnessClub.jar" 
